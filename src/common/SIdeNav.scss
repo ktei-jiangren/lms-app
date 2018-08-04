@@ -1,0 +1,18 @@
+@import "../variable.scss";
+
+.lms-sidenav {
+  width: 200px;
+  position: fixed;
+  top: 0;
+  background: $grey-dark;
+  height: 100%;
+  padding: 70px 15px 10px 15px;
+  overflow-y: auto;
+  li a {
+    color: $white;
+    &:hover, &.active {
+      color: $white;
+      background: $primary;
+    }
+  }
+}
