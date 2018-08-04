@@ -1,3 +1,11 @@
 {
-  "extends": ["standard", "standard-react", "prettier"]
+  "parser": "babel-eslint",
+  "extends": ["standard", "standard-react", "prettier"],
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "API_URL": true,
+    "HOST_URL": true
+  }
 }
