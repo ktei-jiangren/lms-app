@@ -3,6 +3,7 @@ import classnames from "classnames";
 import axios from "axios";
 import TextField from "../common/TextField";
 import Button from "../common/Button";
+import Notification from "../common/Notification";
 import * as yup from "yup";
 import { pick } from "lodash/object";
 import * as LoginAPI from "./LoginAPI";
@@ -67,7 +68,8 @@ export default class Login extends React.PureComponent {
         this.setState({ validationErrors, isLoggingIn: false });
       } else {
         this.setState({
-          loginError: err.error_description,
+          loginError:
+            err.error_description || "Sorry, error occurred when logging in",
           isLoggingIn: false
         });
       }
@@ -88,9 +90,9 @@ export default class Login extends React.PureComponent {
               </p>
               <div className={classnames("box")}>
                 {this.state.loginError && (
-                  <div className="notification is-danger">
+                  <Notification type="danger">
                     {this.state.loginError}
-                  </div>
+                  </Notification>
                 )}
                 <form onSubmit={this.handleOnSubmit}>
                   <TextField

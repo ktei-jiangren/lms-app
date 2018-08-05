@@ -19,10 +19,7 @@ function MainContent({ children, className, ...other }) {
 }
 
 MainContent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element)
-  ]),
+  children: PropTypes.node,
   className: PropTypes.string
 };
 

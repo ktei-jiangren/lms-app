@@ -31,7 +31,7 @@ function Button({
 }
 
 Button.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  children: PropTypes.node,
   buttonType: PropTypes.oneOf([
     "primary",
     "link",

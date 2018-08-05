@@ -34,7 +34,7 @@ function TextField({ className, label, leftIcon, rightIcon, error, ...other }) {
 
 TextField.propTypes = {
   className: PropTypes.string,
-  label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  label: PropTypes.node,
   leftIcon: PropTypes.string,
   rightIcon: PropTypes.string,
   error: PropTypes.string

@@ -16,6 +16,6 @@ export function getAccessToken(username, password) {
           reject(response.response.data);
         }
       })
-      .catch(err => console.log(err));
+      .catch(reject);
   });
 }

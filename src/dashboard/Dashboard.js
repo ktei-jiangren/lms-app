@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import MainContent from "../common/MainContent";
 import "./Dashboard.scss";
 
@@ -18,9 +19,12 @@ export default function Dashboard() {
             <a className="button is-primary is-inverted is-outlined lms-dashboard__tile-button">
               Add new course
             </a>
-            <a className="button is-primary is-inverted is-outlined lms-dashboard__tile-button">
-              Manage courses
-            </a>
+            <Link
+              to="/courses"
+              className="button is-primary is-inverted is-outlined lms-dashboard__tile-button"
+            >
+              All courses
+            </Link>
           </article>
         </div>
         <div className="tile is-parent">
@@ -31,7 +35,7 @@ export default function Dashboard() {
               Add new lecturer
             </a>
             <a className="button is-info is-inverted is-outlined lms-dashboard__tile-button">
-              Manage lecturers
+              All lecturers
             </a>
           </article>
         </div>
@@ -45,7 +49,7 @@ export default function Dashboard() {
               Add new student
             </a>
             <a className="button is-warning is-inverted is-outlined lms-dashboard__tile-button">
-              Manage students
+              All students
             </a>
           </article>
         </div>

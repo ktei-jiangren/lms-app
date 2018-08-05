@@ -9,7 +9,7 @@ export default function SideNav() {
         <p className="menu-label">Quick links</p>
         <ul className="menu-list">
           <li>
-            <NavLink to="/">Dashboard</NavLink>
+            <NavLink to="/dashboard">Dashboard</NavLink>
           </li>
           <li>
             <NavLink to="/courses">Courses</NavLink>

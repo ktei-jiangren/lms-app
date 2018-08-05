@@ -1,0 +1,11 @@
+@import '../variable.scss';
+
+.lms-loader {
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.lms-loader__spinner {
+  color: $primary;
+}
