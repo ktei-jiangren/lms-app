@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import MainContent from "../common/MainContent";
 import Notification from "../common/Notification";
 import Loader from "../common/Loader";
@@ -32,6 +33,13 @@ class CourseList extends React.PureComponent {
     return (
       <MainContent>
         <h1 className="title is-size-2 has-text-grey">Courses</h1>
+        <Link
+          className="button is-primary"
+          to="courses/create"
+          style={{ marginBottom: 20 }}
+        >
+          Add new course
+        </Link>
         {this.state.error && (
           <Notification type="danger" closable>
             {this.state.error}
@@ -40,7 +48,7 @@ class CourseList extends React.PureComponent {
         {this.state.isLoading && <Loader />}
         {!this.state.isLoading &&
           !this.state.error && (
-            <div className="columns">
+            <div className="columns is-multiline">
               {this.state.courses.map(course => {
                 return (
                   <div className="column is-one-third" key={course.id}>

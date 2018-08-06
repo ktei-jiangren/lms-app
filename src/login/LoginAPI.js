@@ -10,10 +10,10 @@ export function getAccessToken(username, password) {
     axios
       .post("/token", params)
       .then(response => {
-        if (response.status === 200) {
+        if (response.status >= 200 && response.status < 300) {
           resolve(response.data);
         } else {
-          reject(response.response.data);
+          reject(response.response);
         }
       })
       .catch(reject);

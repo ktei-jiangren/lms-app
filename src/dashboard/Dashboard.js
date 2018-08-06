@@ -16,9 +16,12 @@ export default function Dashboard() {
             <p className="subtitle">
               All kinds of courses needed for IT industry
             </p>
-            <a className="button is-primary is-inverted is-outlined lms-dashboard__tile-button">
+            <Link
+              to="/courses/create"
+              className="button is-primary is-inverted is-outlined lms-dashboard__tile-button"
+            >
               Add new course
-            </a>
+            </Link>
             <Link
               to="/courses"
               className="button is-primary is-inverted is-outlined lms-dashboard__tile-button"

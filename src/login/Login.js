@@ -4,6 +4,7 @@ import axios from "axios";
 import TextField from "../common/TextField";
 import Button from "../common/Button";
 import Notification from "../common/Notification";
+import { getValidationErrors } from "../common/helper";
 import * as yup from "yup";
 import { pick } from "lodash/object";
 import * as LoginAPI from "./LoginAPI";
@@ -38,41 +39,40 @@ export default class Login extends React.PureComponent {
     });
   };
 
-  handleOnSubmit = async e => {
+  handleSubmit = async e => {
     e.preventDefault();
+
+    // Validate user input
+    const userInput = pick(this.state, ["username", "password"]);
     try {
-      const val = await schema.validate(
-        pick(this.state, ["username", "password"]),
-        {
-          abortEarly: false
-        }
-      );
+      await schema.validate(userInput);
+    } catch (err) {
+      const validationErrors = getValidationErrors(err);
+      this.setState({ validationErrors });
+      return;
+    }
+
+    // Try to login
+    try {
       this.setState({ validationErrors: {}, isLoggingIn: true });
       const response = await LoginAPI.getAccessToken(
-        val.username,
-        val.password
+        userInput.username,
+        userInput.password
       );
       this.setState({ loginError: "", isLoggingIn: false });
-      delete axios.defaults.headers.common.Authorization;
+
+      // Update bearer token
       axios.defaults.headers.common.Authorization = `Bearer ${
         response.access_token
       }`;
       localStorage.setItem("access_token", response.access_token);
-      window.location.href = `${HOST_URL}`;
+      window.location.href = HOST_URL;
     } catch (err) {
-      if (err.name === "ValidationError") {
-        const validationErrors = err.inner.reduce((x, y) => {
-          x[y.path] = y.message;
-          return x;
-        }, {});
-        this.setState({ validationErrors, isLoggingIn: false });
-      } else {
-        this.setState({
-          loginError:
-            err.error_description || "Sorry, error occurred when logging in",
-          isLoggingIn: false
-        });
-      }
+      this.setState({
+        loginError:
+          err.error_description || "Sorry, error occurred when logging in",
+        isLoggingIn: false
+      });
     }
   };
 
@@ -94,7 +94,7 @@ export default class Login extends React.PureComponent {
                     {this.state.loginError}
                   </Notification>
                 )}
-                <form onSubmit={this.handleOnSubmit}>
+                <form onSubmit={this.handleSubmit}>
                   <TextField
                     name="username"
                     value={this.state.username}

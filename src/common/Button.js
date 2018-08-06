@@ -25,7 +25,7 @@ function Button({
       disabled={loading}
       {...other}
     >
-      Button
+      {children}
     </button>
   );
 }

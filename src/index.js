@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import "./app.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 import App from "./app/App";
 

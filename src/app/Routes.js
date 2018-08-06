@@ -11,7 +11,7 @@ export default () => (
     <Redirect exact path="/" to="/dashboard" />
     <Route exact path="/dashboard" component={Dashboard} />
     <Route exact path="/courses" component={CourseList} />
-    <Route exact path="/courses/:id" component={CourseDetails} />
+    <Route exact path="/courses/:id(\d+|create)" component={CourseDetails} />
     <Route exact path="/login" component={Login} />
     <Route path="*" component={NotFound} />
   </Switch>
