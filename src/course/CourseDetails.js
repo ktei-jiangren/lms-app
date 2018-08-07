@@ -8,7 +8,7 @@ import TextField from "../common/TextField";
 import SelectField from "../common/SelectField";
 import TextAreaField from "../common/TextAreaField";
 import Notification from "../common/Notification";
-import { getValidationErrors } from "../common/helper";
+import { getValidationErrors, getHostUrl } from "../common/helper";
 import { ToastContainer, toast } from "react-toastify";
 import * as yup from "yup";
 import { pick } from "lodash/object";
@@ -127,7 +127,7 @@ class CourseDetails extends React.PureComponent {
       if (this.isCreatingNewCourse()) {
         await CourseAPI.createCourse(userInput);
         this.setState({ isSaving: false });
-        window.location.href = `${HOST_URL}/courses`;
+        window.location.href = `${getHostUrl()}#/courses`;
       } else {
         const id = this.getCourseId();
         await CourseAPI.updateCourse(id, userInput);

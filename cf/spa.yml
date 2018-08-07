@@ -1,0 +1,56 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: LMS SPA
+
+Parameters:
+  DomainName:
+    Type: String
+    Description: The root domain name for our site, e.g. `example.com`
+
+Resources:
+  S3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Ref DomainName
+      # AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+        RoutingRules:
+        - RedirectRule:
+            HostName: !Sub ${DomainName}.s3-website-${AWS::Region}.amazonaws.com
+            ReplaceKeyWith: "#/"
+          RoutingRuleCondition:
+            HttpErrorCodeReturnedEquals: 403
+        - RedirectRule:
+            HostName: !Sub ${DomainName}.s3-website-${AWS::Region}.amazonaws.com
+            ReplaceKeyWith: "#/"
+          RoutingRuleCondition:
+            HttpErrorCodeReturnedEquals: 404
+
+  S3BucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties: 
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Statement: 
+          - Action: 
+              - "s3:GetObject"
+            Effect: "Allow"
+            Resource: !Join
+              - ""
+              - - "arn:aws:s3:::"
+                - !Ref S3Bucket
+                - "/*"
+            Principal: "*"
+
+  RecourdSet:
+    Type : "AWS::Route53::RecordSet"
+    Properties:
+      Name: !Ref DomainName
+      Comment: !Sub "LMS SPA (${DomainName})"
+      HostedZoneName: disasterdev.net.
+      AliasTarget:
+        DNSName: !Sub s3-website-${AWS::Region}.amazonaws.com
+        HostedZoneId: Z1WCIGYICN2BYD
+      Type: A

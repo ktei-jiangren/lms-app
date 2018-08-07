@@ -4,7 +4,7 @@ import axios from "axios";
 import TextField from "../common/TextField";
 import Button from "../common/Button";
 import Notification from "../common/Notification";
-import { getValidationErrors } from "../common/helper";
+import { getValidationErrors, getHostUrl } from "../common/helper";
 import * as yup from "yup";
 import { pick } from "lodash/object";
 import * as LoginAPI from "./LoginAPI";
@@ -66,7 +66,7 @@ export default class Login extends React.PureComponent {
         response.access_token
       }`;
       localStorage.setItem("access_token", response.access_token);
-      window.location.href = HOST_URL;
+      window.location.href = getHostUrl();
     } catch (err) {
       this.setState({
         loginError:
