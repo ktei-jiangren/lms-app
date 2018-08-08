@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --hot --open --history-api-fallback",
-    "clean": "rimraf ./build/css/*.css && rimraf ./build/*.*",
+    "clean": "rimraf ./build/css/*.css && rimraf ./build/*.js",
     "build": "webpack --config webpack.prod.js --mode production"
   },
   "author": "",
