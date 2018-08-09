@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const path = require("path");
 
 const htmlPlugin = new HtmlWebPackPlugin({
@@ -48,6 +49,19 @@ module.exports = {
           use: ["css-loader", "sass-loader"]
         })
       }
+    ]
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          warnings: false,
+          output: {
+            comments: false,
+            beautify: false
+          }
+        }
+      })
     ]
   },
   plugins: [htmlPlugin, extractTextPlubin, definePlugin, errorOverlayPlugin]
