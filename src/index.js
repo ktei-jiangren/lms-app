@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-import { getApiUrl, getHostUrl } from "./common/helper";
+import { getApiUrl, redirect } from "./common/helper";
 import "./app.scss";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -20,7 +20,7 @@ axios.interceptors.response.use(
   },
   error => {
     if (error.response.status === 401 || error.response.status === 403) {
-      window.location.href = `${getHostUrl()}#/login`;
+      redirect("/login");
     }
     return error;
   }

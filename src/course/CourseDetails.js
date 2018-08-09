@@ -8,7 +8,8 @@ import TextField from "../common/TextField";
 import SelectField from "../common/SelectField";
 import TextAreaField from "../common/TextAreaField";
 import Notification from "../common/Notification";
-import { getValidationErrors, getHostUrl } from "../common/helper";
+import ConfirmDialog from "../common/ConfirmDialog";
+import { getValidationErrors, redirect } from "../common/helper";
 import { ToastContainer, toast } from "react-toastify";
 import * as yup from "yup";
 import { pick } from "lodash/object";
@@ -127,7 +128,7 @@ class CourseDetails extends React.PureComponent {
       if (this.isCreatingNewCourse()) {
         await CourseAPI.createCourse(userInput);
         this.setState({ isSaving: false });
-        window.location.href = `${getHostUrl()}#/courses`;
+        redirect("/courses");
       } else {
         const id = this.getCourseId();
         await CourseAPI.updateCourse(id, userInput);
@@ -138,6 +139,29 @@ class CourseDetails extends React.PureComponent {
       this.setState({
         error: "Error occurred while saving the course",
         isSaving: false
+      });
+    }
+  };
+
+  handleDelete = () => {
+    this.setState({ showConfirmDelete: true });
+  };
+
+  handleCancelDelete = () => {
+    this.setState({ showConfirmDelete: false });
+  };
+
+  handleConfirmDelete = async () => {
+    this.setState({ isDeleting: true });
+    try {
+      await CourseAPI.deleteCourse(this.getCourseId());
+      this.setState({ showConfirmDelete: false, isDeleting: false });
+      redirect("/courses");
+    } catch (err) {
+      this.setState({
+        error: "Error occurred while deleting the course",
+        isDeleting: false,
+        showConfirmDelete: false
       });
     }
   };
@@ -251,7 +275,27 @@ class CourseDetails extends React.PureComponent {
         )}
         {this.state.isLoading && <Loader />}
         <ToastContainer autoClose={3000} />
+        {!this.state.isLoading &&
+          this.state.course &&
+          !this.isCreatingNewCourse() && (
+            <Button
+              buttonType="danger"
+              style={{ marginBottom: 20 }}
+              onClick={this.handleDelete}
+            >
+              Delete course
+            </Button>
+          )}
         {!this.state.isLoading && this.state.course && this.renderForm()}
+        <ConfirmDialog
+          active={this.state.showConfirmDelete}
+          onPositive={this.handleConfirmDelete}
+          onNegative={this.handleCancelDelete}
+          title="Are you sure to continue"
+          positiveButtonProps={{ loading: this.state.isDeleting }}
+        >
+          Are you sure you want to delete this course?
+        </ConfirmDialog>
       </MainContent>
     );
   }
