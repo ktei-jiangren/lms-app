@@ -157,7 +157,7 @@ class StudentList extends React.PureComponent {
         <h1 className="title is-size-2 has-text-grey">Students</h1>
         <Link
           className="button is-primary"
-          to="courses/create"
+          to="students/create"
           style={{ marginBottom: 20 }}
         >
           Add new student
