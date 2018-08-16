@@ -72,7 +72,7 @@ class StudentList extends React.PureComponent {
         )}
         {!this.state.isLoadingPage &&
           this.state.students.map(student => (
-            <tr>
+            <tr key={student.id}>
               <td>{student.fullName}</td>
               <td>{student.email}</td>
               <td>{student.gender}</td>

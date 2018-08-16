@@ -90,6 +90,19 @@ class CourseDetails extends React.PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.match.params.id === "create" &&
+      nextProps.match.params.id !== this.props.match.params.id
+    ) {
+      this.setState({
+        course: createNewCourse(),
+        error: "",
+        validationErrors: {}
+      });
+    }
+  }
+
   handleFieldChange = e => {
     const {
       target,
