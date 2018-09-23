@@ -5,6 +5,7 @@ import CourseList from "../course/CourseList";
 import CourseDetails from "../course/CourseDetails";
 import StudentList from "../student/StudentList";
 import StudentDetails from "../student/StudentDetails";
+import LectuerList from "../lecturer/LecturerList";
 import Login from "../login/Login";
 import NotFound from "../error/NotFound";
 
@@ -16,6 +17,7 @@ export default () => (
     <Route exact path="/courses/:id(\d+|create)" component={CourseDetails} />
     <Route exact path="/students" component={StudentList} />
     <Route exact path="/students/:id(\d+|create)" component={StudentDetails} />
+    <Route exact path="/lecturers" component={LectuerList} />
     <Route exact path="/login" component={Login} />
     <Route path="*" component={NotFound} />
   </Switch>
