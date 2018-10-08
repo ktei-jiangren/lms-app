@@ -21,6 +21,11 @@ const schema = yup.object().shape({
     .max(50)
     .label("Title")
     .required(),
+  language: yup
+    .string()
+    .max(50)
+    .label("Language")
+    .required(),
   fee: yup
     .number()
     .positive()
@@ -122,6 +127,7 @@ class CourseDetails extends React.PureComponent {
     e.preventDefault();
     const userInput = pick(this.state.course, [
       "title",
+      "language",
       "fee",
       "maxStudent",
       "description"
@@ -203,6 +209,29 @@ class CourseDetails extends React.PureComponent {
                 onChange={this.handleFieldChange}
                 error={this.state.validationErrors["title"]}
               />
+            </div>
+          </div>
+          <div className="field is-horizontal">
+            <div className="field-label is-normal">
+              <label className="label">Language</label>
+            </div>
+            <div className="field-body">
+              <SelectField
+                name="language"
+                placeholder="Language"
+                value={this.state.course.language}
+                onChange={this.handleFieldChange}
+                style={{ width: 150 }}
+                error={this.state.validationErrors["language"]}
+              >
+                <option>--Select--</option>
+                <option value="csharp">C#</option>
+                <option value="java">Java</option>
+                <option value="javascript">JavaScript</option>
+                <option value="go">Go</option>
+                <option value="ruby">Ruby</option>
+                <option value="python">Python</option>
+              </SelectField>
             </div>
           </div>
           <div className="field is-horizontal">
